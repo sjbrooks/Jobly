@@ -39,11 +39,10 @@ function Profile() {
     try {
       let resp = await JoblyApi.request(`users/${user.username}`, formData, "patch");
       setUser(resp.user);
-      setAlertObj({type: "success", msgs: ["User Profile Updated"]})
+      setAlertObj({type: "success", msgs: ["User Profile Updated"]});
+      setFormData({...INITIAL_FIELDS});
     } catch (err) {
       setAlertObj({type: "danger", msgs: err})
-
-      // setErrMsg(err);
     }
   }, [formData]);
 

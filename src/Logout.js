@@ -8,22 +8,22 @@ import TokenContext from './tokenContext';
  *    - Used in Routes component
  */
 
-function Logout() {
+// function Logout() {
 
-  const history = useHistory();
-  const {setToken} = useContext(TokenContext);
+//   const history = useHistory();
+//   const {setToken} = useContext(TokenContext);
 
-  async function resetToken() {
-    await setToken("null");
-    // remove item from local storage
-    // redirect *********
-    history.push("/");
-  }
+//   async function resetToken() {
+//     await setToken(null);
+//     // remove item from local storage
+//     // redirect *********
+//     history.push("/");
+//   }
 
-  resetToken();
+//   resetToken();
 
-  return(null);
-}
+//   return(null);
+// }
 
-export default Logout;
+// export default Logout;
 

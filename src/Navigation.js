@@ -37,7 +37,8 @@ function Navigation({ handleLogout }) {
               </NavLink>
             </li>
             <li className="Navigation nav-item">
-              <NavLink to="#" onClick={handleLogout}>
+              <NavLink to="/" onClick={handleLogout}>
+                {console.log(`\n\n\n The value of handleLogout inside Navigation is `, handleLogout, '\n\n\n')}
                 Log out
               </NavLink>
             </li>

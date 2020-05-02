@@ -6,7 +6,6 @@ import Routes from "./Routes";
 import Navigation from "./Navigation";
 import JoblyApi from "./JoblyApi";
 import TokenContext from "./tokenContext";
-import UserContext from "./userContext";
 
 
 /** App: Component that renders home page with description of Jobly and depending 
@@ -24,16 +23,17 @@ function App() {
 
 
   function handleLogout() {
+    console.log(`\n\n\n made it into handleLogout in App`);
     localStorage.removeItem('token');
+    setUser(null);
     return <Redirect to='/login' />
   }
 
   useEffect(() => {
     console.log("effect in App ran");
     
-    localStorage.setItem('token', token);
-
     if (token !== null) {
+      localStorage.setItem('token', token);
       let payload = jwt.decode(token);
       let updatedUsername = payload.username;
 
@@ -41,7 +41,8 @@ function App() {
         try {
           let resp = await JoblyApi.request(`users/${updatedUsername}`);
           setUser(resp.user);
-
+          // waits until user has been set to change requestCompleted state to true
+          setRequestCompleted(true);
         } catch (err) {
           console.error(err);
         }
@@ -49,10 +50,11 @@ function App() {
       fetchUser();
     } else {
       setUser(null);
+      setRequestCompleted(true);
     }
-    // waits until user has been set to change requestCompleted state to true
-    setRequestCompleted(true);
   }, [token]);
+
+  console.log(`\n\n\n The value of user in App is `, user, '\n\n\n');
 
   // ********* browserroute in index not app. 
   return (

@@ -13,6 +13,7 @@ import Alert from "./Alert";
  */
 
 function Login() {
+  console.log('\n\n\n Made it into Login component \n\n\n');
   const loginFields = [{ input: "username", label: "Username" },
   { input: "password", label: "Password" }];
 
