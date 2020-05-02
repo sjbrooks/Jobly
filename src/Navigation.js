@@ -8,7 +8,7 @@ import TokenContext from "./tokenContext";
  *    - Used in App
  * */
 
-function Navigation() {
+function Navigation({ handleLogout }) {
 
   const { user } = useContext(TokenContext);
 
@@ -37,9 +37,8 @@ function Navigation() {
               </NavLink>
             </li>
             <li className="Navigation nav-item">
-              <NavLink to="#" onClick={}>
+              <NavLink to="#" onClick={handleLogout}>
                 Log out
-                {/* write logic to logout (pass in from app as prop to navigation) *********** */}
               </NavLink>
             </li>
             </ul>

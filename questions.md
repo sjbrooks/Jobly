@@ -17,6 +17,4 @@ BEFORE NEXT CODE REVIEW
 
 - TODO: Make error messages more friendly
 
-- TODO: make password input field ****** private
-
 - TODO: user localStorage to manage the user data

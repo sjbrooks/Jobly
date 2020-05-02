@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Redirect } from "react-router-dom";
 import jwt from "jsonwebtoken";
 
 import Routes from "./Routes";
@@ -19,12 +19,18 @@ import UserContext from "./userContext";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  // const [token, setToken] = useState("null");
   const [user, setUser] = useState(null);
   const [requestCompleted, setRequestCompleted] = useState(false);
 
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    return <Redirect to='/login' />
+  }
+
   useEffect(() => {
-    console.log("effect in app ran");
+    console.log("effect in App ran");
+    
     localStorage.setItem('token', token);
 
     if (token !== null) {
@@ -44,9 +50,7 @@ function App() {
     } else {
       setUser(null);
     }
-
-    // render our routes ONLY when user has been set (or else in PrivateRoutes our user will still be null)
-    // "Hydration"
+    // waits until user has been set to change requestCompleted state to true
     setRequestCompleted(true);
   }, [token]);
 
@@ -54,14 +58,12 @@ function App() {
   return (
     <div>
       <TokenContext.Provider value={{ token, setToken, user, setUser }}>
-        {/* <UserContext.Provider value={{ user, setUser }}> */}
         <BrowserRouter>
-          <Navigation />
+          <Navigation handleLogout={handleLogout}/>
           <div className="container">
             {requestCompleted ? <Routes /> : <div>Loading...</div>}
           </div>
         </BrowserRouter>
-        {/* </UserContext.Provider> */}
       </TokenContext.Provider>
     </div >
   );

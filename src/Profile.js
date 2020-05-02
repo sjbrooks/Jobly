@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext, useCallback} from 'react';
+import React, { useState, useContext, useCallback} from 'react';
 import './Profile.css';
 import JoblyApi from './JoblyApi';
 import TokenContext from "./tokenContext";

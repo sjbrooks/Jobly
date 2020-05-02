@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {
   Switch,
   Route,
@@ -12,9 +12,9 @@ import Company from "./Company"
 import Jobs from "./Jobs"
 import Login from "./Login"
 import Profile from "./Profile"
-import Logout from "./Logout"
+// import Logout from "./Logout"
 
-import TokenContext from "./tokenContext";
+// import TokenContext from "./tokenContext";
 
 
 // To figure out how to handle lack of token to redirect to login page
@@ -24,7 +24,7 @@ import TokenContext from "./tokenContext";
  *    - Uses Home, Companies, Company, Jobs, Login, and Profile Components */
 
 function Routes() {
-  const { token, user } = useContext(TokenContext);
+  // const { token, user } = useContext(TokenContext);
 
   return (
     <Switch>
@@ -52,11 +52,11 @@ function Routes() {
         <Profile />
       </PrivateRoute>
 
-      <PrivateRoute exact path="/logout">
+      {/* <PrivateRoute exact path="/logout">
         <Logout />
-      </PrivateRoute>
+      </PrivateRoute> */}
 
-      {/* <Redirect to="/" /> */}
+      <Redirect to="/" />
     </Switch>
   );
 }

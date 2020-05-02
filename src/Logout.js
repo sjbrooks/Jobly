@@ -15,6 +15,7 @@ function Logout() {
 
   async function resetToken() {
     await setToken("null");
+    // remove item from local storage
     // redirect *********
     history.push("/");
   }

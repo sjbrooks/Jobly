@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './Login.css';
 import JoblyApi from './JoblyApi';
 import TokenContext from "./tokenContext";
@@ -30,13 +30,6 @@ function Login() {
 
   const { user, setToken } = useContext(TokenContext);
 
-  const history = useHistory();
-
-  if (user !== null) {
-    // history.push("/jobs");
-
-    // redirect instead***********
-  }
 
   /** loginUser: makes API call to login user */
 
@@ -89,30 +82,31 @@ function Login() {
 
   function renderForms(formTypeFields) {
     return (
-      <form onSubmit={handleSubmit}>
-        {formTypeFields.map(field => (
-          <div className="form-group" key={field.input}>
-            <label htmlFor={field.input}>{field.label}</label>
-            <input
-              className="Login-input"
-              id={field.input}
-              name={field.input}
-              type={field.input === "password" ? "password" : "text"}
-              value={formData[field.input]}
-              onChange={handleChange}
-            />
-          </div>
-        ))}
+        <form onSubmit={handleSubmit}>
+          {formTypeFields.map(field => (
+            <div className="form-group" key={field.input}>
+              <label htmlFor={field.input}>{field.label}</label>
+              <input
+                className="Login-input"
+                id={field.input}
+                name={field.input}
+                type={field.input === "password" ? "password" : "text"}
+                value={formData[field.input]}
+                onChange={handleChange}
+              />
+            </div>
+          ))}
 
-        {errMsg.length !== 0 ? <Alert msg={errMsg} type="danger" alertClose={() => setErrMsg("")} /> : null}
+          {errMsg.length !== 0 ? <Alert msg={errMsg} type="danger" alertClose={() => setErrMsg("")} /> : null}
 
-        <button className="btn btn-primary Login-submit">Submit</button>
-      </form>
+          <button className="btn btn-primary Login-submit">Submit</button>
+        </form>
     )
   }
 
   if (user !== null) {
-    return <Redirect to="/jobs"/>
+    console.log("\n\n\n In Login, made it into not null user; redirecting to jobs")
+    return <Redirect to="/jobs" />
   }
 
   /** render form */

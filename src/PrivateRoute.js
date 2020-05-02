@@ -9,7 +9,7 @@ function PrivateRoute({ exact, path, children }) {
   console.log("inside private route, token is: ", token);
 
   if (!user && (path !== "/login" && path !== "/")) {
-    console.log('we are being redirected to login');
+    console.log('\n\n\n Inside PrivateRoute, we are being redirected to login');
     return <Redirect to="/login" />;
   }
 
