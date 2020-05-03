@@ -1,12 +1,20 @@
+.Profile h2 {
+  text-align: center;
+  margin: 3rem 0 0 0;
+}
+
 .Profile-form {
   text-align: center;
-  margin: 2rem;
+  margin: 1rem;
+  position: relative;
+  right: 3rem;
 }
 
 .Profile-input {
   margin: auto 1rem;
 }
 
-.Profile-jobs {
-  margin: 3rem auto;
+.Profile-label {
+  width: 10rem;
+  text-align: right;
 }

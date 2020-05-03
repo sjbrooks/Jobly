@@ -34,8 +34,6 @@ function Profile() {
   const INITIAL_ALERT = { type: "", msgs: [] };
   const [alertObj, setAlertObj] = useState({ ...INITIAL_ALERT });
 
-  const appliedJobs = new Set(user.jobs.filter(j => j.state === 'applied').map(j => j.id));
-
 
   /** updateUser: makes API call to update user */
 
@@ -68,48 +66,47 @@ function Profile() {
   }
 
   /** Form to update user profile */
-  let profileForm = (<form onSubmit={handleSubmit}>
-    {updateFields.map(field => (
-      <div className="form-group" key={field.input}>
-        <label htmlFor={field.input}>{field.label}</label>
+  let profileFormFields = (
+    <div>
+      <div className="form-group">
+        <label className="Profile-label" htmlFor="username">Username</label>
         <input
           className="Profile-input"
-          id={field.input}
-          name={field.input}
-          type={field.input === "password" ? "password" : "text"}
-          value={formData[field.input]}
-          onChange={handleChange}
+          id="username"
+          name="username"
+          type="text"
+          value={user.username}
+          disabled={true}
         />
       </div>
-    ))}
-    <button className="btn btn-primary Login-submit">Submit</button>
-  </form>)
+      {updateFields.map(field => (
+        <div className="form-group" key={field.input}>
+          <label className="Profile-label" htmlFor={field.input}>{field.label}</label>
+          <input
+            className="Profile-input"
+            id={field.input}
+            name={field.input}
+            type={field.input === "password" ? "password" : "text"}
+            value={formData[field.input]}
+            onChange={handleChange}
+          />
+        </div>))}
+    </div>
+  );
 
-//********* REWRITE TO MAKE EASIER TO READ */
-let alertBox = (alertObj.msgs.length !== 0 ? <Alert msg={alertObj.msgs} type={alertObj.type} alertClose={() => setAlertObj({ ...INITIAL_ALERT })} /> : null)
-
-let jobCards = user.jobs.map(jobData => (
-  <JobCard key={jobData.id} jobData={jobData} appliedJobs={appliedJobs} />
-));
+  //********* REWRITE TO MAKE EASIER TO READ */
+  let alertBox = (alertObj.msgs.length !== 0 ? <Alert msg={alertObj.msgs} type={alertObj.type} alertClose={() => setAlertObj({ ...INITIAL_ALERT })} /> : null)
 
   /** render form */
   return (
     <div className="Profile">
-      <div className="Profile-form">
-        <h2>{user.first_name}'s Profile</h2>
-        <div>
-          <span><b>Username</b> {user.username}</span>
-        </div>
-        <div>
-          {profileForm}
-        </div>
-        <div>
-          {alertBox}
-        </div>
-        <div className="Profile-jobs">
-          <h2>Your Jobs</h2>
-          {jobCards}
-        </div>
+      <h2>{user.first_name}'s Profile</h2>
+      <form className="Profile-form" onSubmit={handleSubmit}>
+        {profileFormFields}
+        <button className="btn btn-primary Login-submit" > Submit</button>
+      </form >
+      <div>
+        {alertBox}
       </div>
     </div>
   );

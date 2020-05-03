@@ -5,8 +5,7 @@
 }
 
 .Login-input {
-  position: relative;
-  left: 1rem;
+  margin: auto 1rem
 }
 
 .form-group {
@@ -18,11 +17,23 @@
 .Login-submit {
   position: relative;
   top: 1rem;
+  left: 2rem;
   margin: 1rem 0;
 }
 
-.Home {
+.Login-form {
   text-align: center;
+  margin: 1rem;
   position: relative;
-  top: 7rem;
+  right: 2rem;
+}
+
+.Login-form-buttons {
+  position: relative;
+  left: 2rem;
+}
+
+.Login-label {
+  width: 10rem;
+  text-align: right;
 }

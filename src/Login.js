@@ -83,10 +83,10 @@ function Login() {
 
   function renderForms(formTypeFields) {
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="Login-form" onSubmit={handleSubmit}>
           {formTypeFields.map(field => (
             <div className="form-group" key={field.input}>
-              <label htmlFor={field.input}>{field.label}</label>
+              <label className="Login-label" htmlFor={field.input}>{field.label}</label>
               <input
                 className="Login-input"
                 id={field.input}
@@ -106,7 +106,6 @@ function Login() {
   }
 
   if (user !== null) {
-    console.log("\n\n\n In Login, made it into not null user; redirecting to jobs")
     return <Redirect to="/jobs" />
   }
 
