@@ -23,9 +23,6 @@ function Companies() {
         let resp = await JoblyApi.request(`companies?search=${searchTerm}`);
         setCompaniesList(resp.companies);
       } catch (err) {
-        // if (err.error.status === 401) {
-        //   history.push('/login');
-        // } else {
         console.error(err);
       }
     }

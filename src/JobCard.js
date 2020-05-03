@@ -9,13 +9,23 @@ import './JobCard.css';
  *      or Company. Jobs will send a prop jobData that contains an extra key of state (for applied status)
  * */
 
-function JobCard({ jobData }) {
+function JobCard({ jobData: {id, title, salary, equity}, appliedJobs, applyToJob }) {
+
+  console.log(`\n\n\n The value of appliedJobs inside JobCard is `, appliedJobs, '\n\n\n');
+
+  let button = <button className="btn btn-danger" onClick={() => applyToJob(id)}>Apply</button>
+
+  if (appliedJobs.has(id)) {
+    console.log("Job has been applied to")
+    button = <button className="JobCard-applied btn btn-danger" disabled={true}>Applied</button>
+  }
+
   return (
-    <div className="job-card">
-      <h5>{jobData.title}</h5>
-      <p>Salary: {jobData.salary}</p>
-      <p>Equity: {jobData.equity}</p>
-      <button className="btn btn-danger">Apply</button>
+    <div className="JobCard">
+      <h5>{title}</h5>
+      <p>Salary: {salary}</p>
+      <p>Equity: {equity}</p>
+      {button}
     </div>
   )
 }

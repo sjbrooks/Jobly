@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import './Company.css';
 
@@ -13,31 +13,55 @@ import JoblyApi from "./JoblyApi"
 function Company() {
   const { handle } = useParams();
   const [companyData, setCompanyData] = useState(null);
+  const [appliedJobs, setAppliedJobs] = useState(null);
 
-  // useEffect that will make API call for single company upon first component mount
-  useEffect(() => {
-    async function fetchCompanyData() {
-      try {
-        let resp = await JoblyApi.getCompany(handle);
-        setCompanyData(resp);
-      } catch (err) {
-        console.log(err);
-      }
+  
+  // defines fetchCompanyData, which makes API call for single company upon first component mount
+  const fetchCompanyData = useCallback(async () => {
+    try {
+      let resp = await JoblyApi.getCompany(handle);
+      setCompanyData(resp);
+
+      console.log(`\n\n\n The value of resp.jobs is `, resp.jobs, '\n\n\n');
+
+      let appliedJobsSet = new Set(resp.jobs.filter(j => j.state === 'applied').map(j => j.id));
+      setAppliedJobs(appliedJobsSet);
+
+    } catch (err) {
+      console.log(err);
     }
+  }, []);
+
+  // run fetchJobs upon mounting of Company component
+  useEffect(() => {
     fetchCompanyData();
-  }, [handle]);
+  }, []);
+
+  // useCallback that will make API call to update application status of a job for the current user to 'applied'
+  const applyToJob = useCallback(async (id) => {
+    try {
+      await JoblyApi.request(`jobs/${id}/apply`, {}, "post");
+      fetchCompanyData();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+
+  // ensure that jobsList and appliedJobs have both been set before passing them to each JobCard
+  if (companyData === null || appliedJobs === null) {
+    return <div>...Loading</div>
+  }
 
   return (
     <div className="Company">
-      {companyData === null ? <p>Loading...</p> : (
-        <div>
-          <h3>{companyData.name}</h3>
-          <p className="Company-description">{companyData.description}</p>
-          {companyData.jobs.map(jobData => (
-            <JobCard key={jobData.id} jobData={jobData} />
-          ))}
-        </div>
-      )}
+      <div>
+        <h3>{companyData.name}</h3>
+        <p className="Company-description">{companyData.description}</p>
+        {companyData.jobs.map(j => (
+          <JobCard key={j.id} jobData={j} appliedJobs={appliedJobs} applyToJob={applyToJob} />
+        ))}
+      </div>
     </div>
   )
 }
