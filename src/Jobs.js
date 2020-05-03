@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Jobs.css';
 import JoblyApi from "./JoblyApi";
 
 import Search from "./Search"
 import JobCard from "./JobCard"
-import TokenContext from './tokenContext';
 
 
 /** Jobs: Component renders a list of all jobs that match search term
@@ -17,7 +16,6 @@ import TokenContext from './tokenContext';
 function Jobs() {
   const [searchTerm, setSearchTerm] = useState("");
   const [jobsList, setjobsList] = useState(null);
-  // const {user, setUser} = useContext(TokenContext);
   const [appliedJobs, setAppliedJobs] = useState(null);
 
   // useCallback that will make API call for filtered jobs upon change in searchTerm
@@ -39,16 +37,16 @@ function Jobs() {
   useEffect(() => {
     fetchJobs();
   }, [searchTerm]);
-  
+
 
   // useCallback that will make API call to update application status of a job for the current user to 'applied'
   const applyToJob = useCallback(async (id) => {
-      try {
-        await JoblyApi.request(`jobs/${id}/apply`, {}, "post");
-        fetchJobs();
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      await JoblyApi.request(`jobs/${id}/apply`, {}, "post");
+      fetchJobs();
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   // ensure that jobsList and appliedJobs have both been set before passing them to each JobCard
@@ -56,14 +54,16 @@ function Jobs() {
     return <div>...Loading</div>
   }
 
+  let jobCards = jobsList.map(jobData => (
+    <JobCard key={jobData.id} jobData={jobData} appliedJobs={appliedJobs} applyToJob={applyToJob} />
+  ));
+
   return (
     <div className="Jobs">
       <Search setSearchTerm={setSearchTerm} />
-        <div>
-          {jobsList.map(jobData => (
-            <JobCard key={jobData.id} jobData={jobData} appliedJobs={appliedJobs} applyToJob={applyToJob} />
-          ))}
-        </div>
+      <div>
+        {jobCards}
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import './JobCard.css';
+import { Link } from 'react-router-dom';
 
 /** JobCard: Presentational 'dumb' component that renders a div with job info and a button to apply
  *    - Holds props of a single jobData object to render (to be added: function to updateJobList 
@@ -9,9 +10,8 @@ import './JobCard.css';
  *      or Company. Jobs will send a prop jobData that contains an extra key of state (for applied status)
  * */
 
-function JobCard({ jobData: {id, title, salary, equity}, appliedJobs, applyToJob }) {
+function JobCard({ jobData: {id, title, salary, equity, company_name, company_handle}, appliedJobs, applyToJob }) {
 
-  console.log(`\n\n\n The value of appliedJobs inside JobCard is `, appliedJobs, '\n\n\n');
 
   let button = <button className="btn btn-danger" onClick={() => applyToJob(id)}>Apply</button>
 
@@ -22,7 +22,7 @@ function JobCard({ jobData: {id, title, salary, equity}, appliedJobs, applyToJob
 
   return (
     <div className="JobCard">
-      <h5>{title}</h5>
+      <h5>{title} at <Link to={`/companies/${company_handle}`}>{company_name}</Link></h5>
       <p>Salary: {salary}</p>
       <p>Equity: {equity}</p>
       {button}

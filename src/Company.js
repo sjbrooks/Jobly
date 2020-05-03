@@ -15,14 +15,12 @@ function Company() {
   const [companyData, setCompanyData] = useState(null);
   const [appliedJobs, setAppliedJobs] = useState(null);
 
-  
+
   // defines fetchCompanyData, which makes API call for single company upon first component mount
   const fetchCompanyData = useCallback(async () => {
     try {
       let resp = await JoblyApi.getCompany(handle);
       setCompanyData(resp);
-
-      console.log(`\n\n\n The value of resp.jobs is `, resp.jobs, '\n\n\n');
 
       let appliedJobsSet = new Set(resp.jobs.filter(j => j.state === 'applied').map(j => j.id));
       setAppliedJobs(appliedJobsSet);
@@ -30,7 +28,7 @@ function Company() {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [handle]);
 
   // run fetchJobs upon mounting of Company component
   useEffect(() => {
@@ -50,17 +48,19 @@ function Company() {
 
   // ensure that jobsList and appliedJobs have both been set before passing them to each JobCard
   if (companyData === null || appliedJobs === null) {
-    return <div>...Loading</div>
+    return <div>Loading...</div>
   }
+
+  let jobCards = companyData.jobs.map(j => (
+    <JobCard key={j.id} jobData={j} appliedJobs={appliedJobs} applyToJob={applyToJob} />
+  ));
 
   return (
     <div className="Company">
       <div>
         <h3>{companyData.name}</h3>
         <p className="Company-description">{companyData.description}</p>
-        {companyData.jobs.map(j => (
-          <JobCard key={j.id} jobData={j} appliedJobs={appliedJobs} applyToJob={applyToJob} />
-        ))}
+        {jobCards}
       </div>
     </div>
   )
