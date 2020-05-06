@@ -2,7 +2,7 @@
 
 2. Refactor all the ternary's into if blocks
 
-3. Refactor all the mapping to take place outside of the return and assing it to a const with good name
+3. Refactor all the mapping to take place outside of the return and assign it to a const with good name
 
 4. More friendly error handling
 
@@ -16,7 +16,9 @@
 
 9. useLocalStorage custom hook
 
-10. update Jobs and Company so that I don't reuse applyToJob (maybe define that in a helper or pass it down from higher up)
+10. update Jobs and Company so that I don't reuse applyToJob (maybe define that in a helper or pass it down from higher up) 
+
+11. make it so that when you click on apply (and you had searched for a subset of jobs), that it doesn't go back to the broader jobs page (it should stay on page with subset of jobs). Try useRef to save searchTerm across re-renders and take a look at their solution.
 
 12. Add a page / component for seeing the jobs you've applied to
 
@@ -25,8 +27,6 @@
 14. live search bar
 
 15. structure the folders so that git repo is at top level holding front and backend
-
-16. add company name to JobCard
 
 17. pagination
 
@@ -40,6 +40,6 @@
 
 - appliedJobs as a set? Is it ineffecient to be redefining this each time JobsList is rendered?
 
-- In Jobs, why hasn't jobsList state updated when I try console logging it right after setting it in the same code block
-
 - Should I have appliedJobs in context / state, or props passed down from higher up?
+
+- In Jobs, why hasn't jobsList state updated when I try console logging it right after setting it in the same code block

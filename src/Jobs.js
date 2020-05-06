@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Jobs.css';
 import JoblyApi from "./JoblyApi";
 
@@ -15,47 +15,47 @@ import JobCard from "./JobCard"
 
 function Jobs() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [jobsList, setjobsList] = useState(null);
-  const [appliedJobs, setAppliedJobs] = useState(null);
+  const [jobsList, setJobsList] = useState(null);
 
-  // useCallback that will make API call for filtered jobs upon change in searchTerm
-  const fetchJobs = useCallback(async () => {
+  // makes API call for filtered jobs upon change in searchTerm
+  async function fetchJobs() {
     console.log("In Jobs, made it into fetchJobs")
     try {
       let resp = await JoblyApi.request(`jobs?search=${searchTerm}`);
-      setjobsList(resp.jobs);
-
-      let appliedJobsSet = new Set(resp.jobs.filter(j => j.state === 'applied').map(j => j.id));
-      setAppliedJobs(appliedJobsSet);
+      setJobsList(resp.jobs);
 
     } catch (err) {
       console.log(err);
     }
-  }, [searchTerm]);
+  };
 
   // run fetchJobs upon submission of search
   useEffect(() => {
     fetchJobs();
   }, [searchTerm]);
 
-
-  // useCallback that will make API call to update application status of a job for the current user to 'applied'
-  const applyToJob = useCallback(async (id) => {
+  // makes API call to update application status of a job for the current user to 'applied'
+  async function applyToJob(id) {
     try {
-      await JoblyApi.request(`jobs/${id}/apply`, {}, "post");
-      fetchJobs();
+      let resp = await JoblyApi.request(`jobs/${id}/apply`, {}, "post");
+      console.log(`\n\n\n The value of resp.message is `, resp.message, '\n\n\n');
+      // fetchJobs();
+      setJobsList(j => j.map(job =>
+        job.id === id ? { ...job, state: resp.message} : job
+      ));
+      console.log(`\n\n\n The value of jobsList is `, jobsList, '\n\n\n');
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }
 
-  // ensure that jobsList and appliedJobs have both been set before passing them to each JobCard
-  if (jobsList === null || appliedJobs === null) {
+  // ensure that jobsList has been set before passing them to each JobCard
+  if (jobsList === null) {
     return <div>...Loading</div>
   }
 
   let jobCards = jobsList.map(jobData => (
-    <JobCard key={jobData.id} jobData={jobData} appliedJobs={appliedJobs} applyToJob={applyToJob} />
+    <JobCard key={jobData.id} jobData={jobData} applyToJob={applyToJob} />
   ));
 
   return (
