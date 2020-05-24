@@ -18,7 +18,7 @@
 
 10. update Jobs and Company so that I don't reuse applyToJob (maybe define that in a helper or pass it down from higher up) 
 
-11. make it so that when you click on apply (and you had searched for a subset of jobs), that it doesn't go back to the broader jobs page (it should stay on page with subset of jobs). Try useRef to save searchTerm across re-renders and take a look at their solution.
+11. update Company so that you don't need applied jobs set to search for updated state
 
 12. Add a page / component for seeing the jobs you've applied to
 

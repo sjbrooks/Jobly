@@ -38,12 +38,9 @@ function Jobs() {
   async function applyToJob(id) {
     try {
       let resp = await JoblyApi.request(`jobs/${id}/apply`, {}, "post");
-      console.log(`\n\n\n The value of resp.message is `, resp.message, '\n\n\n');
-      // fetchJobs();
       setJobsList(j => j.map(job =>
         job.id === id ? { ...job, state: resp.message} : job
       ));
-      console.log(`\n\n\n The value of jobsList is `, jobsList, '\n\n\n');
     } catch (err) {
       console.log(err);
     }
