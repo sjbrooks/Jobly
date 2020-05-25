@@ -44,4 +44,4 @@ This repository contains two separate applications: `client`, which is a Create 
 
 ## Acknowledgments
 
-* Although I wrote a version of the [backend](https://github.com/sjbrooks/Express-Jobly) separately, the deployed version of this app uses the backend written by Rithm School (this was so that each pair could start with the same codebase when building out the React frontend)
+* Although I wrote a version of the [backend](https://github.com/sjbrooks/Express-Jobly) separately, the [deployed version of this app](http://jobly.demo.sjbrooks.com) uses the backend written by Rithm School (this was so that each pair could start with the same codebase when building out the React frontend)
