@@ -6,10 +6,10 @@
 
 import React, { useEffect, useState } from 'react';
 import './Companies.css';
-import JoblyApi from "./JoblyApi";
+import JoblyApi from "../api/JoblyApi";
 
 import CompanyCard from "./CompanyCard"
-import Search from "./Search"
+import Search from "../shared/Search"
 
 
 function Companies() {

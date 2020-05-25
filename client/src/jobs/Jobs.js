@@ -8,9 +8,9 @@
 
 import React, { useState, useEffect } from 'react';
 import './Jobs.css';
-import JoblyApi from "./JoblyApi";
+import JoblyApi from "../api/JoblyApi";
 
-import Search from "./Search"
+import Search from "../shared/Search"
 import JobCard from "./JobCard"
 
 

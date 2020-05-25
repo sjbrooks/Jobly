@@ -11,10 +11,10 @@ import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import jwt from "jsonwebtoken";
 
-import Routes from "./Routes";
-import Navigation from "./Navigation";
-import JoblyApi from "./JoblyApi";
-import TokenContext from "./tokenContext";
+import Routes from "./nav-routes/Routes";
+import Navigation from "./nav-routes/Navigation";
+import JoblyApi from "./api/JoblyApi";
+import TokenContext from "./auth/tokenContext";
 
 
 function App() {

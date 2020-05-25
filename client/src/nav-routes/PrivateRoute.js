@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import TokenContext from "./tokenContext";
+import TokenContext from "../auth/tokenContext";
 
 function PrivateRoute({ exact, path, children }) {
   const { user } = useContext(TokenContext);

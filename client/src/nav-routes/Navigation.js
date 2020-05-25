@@ -7,7 +7,7 @@
 import React, { useContext } from 'react';
 import './Navigation.css';
 import { NavLink } from "react-router-dom";
-import TokenContext from "./tokenContext";
+import TokenContext from "../auth/tokenContext";
 
 
 function Navigation({ handleLogout }) {

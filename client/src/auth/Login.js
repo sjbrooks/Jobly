@@ -7,11 +7,11 @@
 
 import React, { useState, useCallback, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import JoblyApi from './JoblyApi';
-import TokenContext from "./tokenContext";
+import JoblyApi from "../api/JoblyApi";
+import TokenContext from "../auth/tokenContext";
 import './Login.css';
 
-import Alert from "./Alert";
+import Alert from "../shared/Alert";
 
 
 function Login() {

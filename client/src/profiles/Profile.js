@@ -7,9 +7,10 @@
 
 import React, { useState, useContext, useCallback } from 'react';
 import './Profile.css';
-import JoblyApi from './JoblyApi';
-import TokenContext from './tokenContext';
-import Alert from './Alert';
+import JoblyApi from "../api/JoblyApi";
+import TokenContext from '../auth/tokenContext';
+
+import Alert from '../shared/Alert';
 
 
 function Profile() {

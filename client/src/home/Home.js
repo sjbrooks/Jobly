@@ -7,7 +7,7 @@
 import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
-import TokenContext from "./tokenContext";
+import TokenContext from "../auth/tokenContext";
 
 
 function Home() {
