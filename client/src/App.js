@@ -15,6 +15,7 @@ import Routes from "./nav-routes/Routes";
 import Navigation from "./nav-routes/Navigation";
 import JoblyApi from "./api/JoblyApi";
 import TokenContext from "./auth/tokenContext";
+import LoadingSpinner from "./shared/LoadingSpinner";
 
 
 function App() {
@@ -63,7 +64,7 @@ function App() {
       <TokenContext.Provider value={{ token, setToken, user, setUser }}>
           <Navigation handleLogout={handleLogout}/>
           <div className="container">
-            {requestCompleted ? <Routes /> : <div>Loading...</div>}
+            {requestCompleted ? <Routes /> : <LoadingSpinner />}
           </div>
       </TokenContext.Provider>
     </div >

@@ -12,6 +12,7 @@ import JoblyApi from "../api/JoblyApi";
 
 import Search from "../shared/Search"
 import JobCard from "./JobCard"
+import LoadingSpinner from '../shared/LoadingSpinner';
 
 
 function Jobs() {
@@ -54,10 +55,10 @@ function Jobs() {
   /* Ensure that jobsList has been set before passing them to each JobCard */
 
   if (jobsList === null) {
-    return <div>...Loading</div>
+    return <LoadingSpinner />
   }
 
-  let jobCards = jobsList.map(jobData => (
+  const jobCards = jobsList.map(jobData => (
     <JobCard key={jobData.id} jobData={jobData} applyToJob={applyToJob} />
   ));
 
@@ -65,7 +66,7 @@ function Jobs() {
     <div className="Jobs">
       <Search setSearchTerm={setSearchTerm} />
       <div>
-        {jobCards}
+        {jobCards.length > 0 ? jobCards : <h4>{`No jobs found for "${searchTerm}."`}</h4>}
       </div>
     </div>
   )

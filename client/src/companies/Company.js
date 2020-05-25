@@ -9,6 +9,7 @@ import './Company.css';
 import JoblyApi from "../api/JoblyApi";
 
 import JobCard from "../jobs/JobCard"
+import LoadingSpinner from '../shared/LoadingSpinner';
 
 
 function Company() {
@@ -49,7 +50,7 @@ function Company() {
 
   // ensure that jobsList and appliedJobs have both been set before passing them to each JobCard
   if (companyData === null || appliedJobs === null) {
-    return <div>Loading...</div>
+    return <LoadingSpinner />
   }
 
   let jobCards = companyData.jobs.map(j => (

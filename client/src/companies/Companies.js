@@ -10,6 +10,7 @@ import JoblyApi from "../api/JoblyApi";
 
 import CompanyCard from "./CompanyCard"
 import Search from "../shared/Search"
+import LoadingSpinner from '../shared/LoadingSpinner';
 
 
 function Companies() {
@@ -31,16 +32,24 @@ function Companies() {
     fetchCompanies();
   }, [searchTerm]);
 
+
+  /* Ensure that companiesList has been set before passing them to each CompanyCard */
+
+  if (companiesList === null) {
+    return <LoadingSpinner />
+  }
+
+  const companyCards = companiesList.map(companyData => (
+    <CompanyCard key={companyData.handle} companyData={companyData} />
+  ))
+
+
   return (
     <div className="Companies">
-      {companiesList === null ? <p>Loading...</p> : (
-        <div>
-          <Search setSearchTerm={setSearchTerm} />
-          {companiesList.map(companyData => (
-            <CompanyCard key={companyData.handle} companyData={companyData} />
-          ))}
-        </div>
-      )}
+      <Search setSearchTerm={setSearchTerm} />
+      <div>
+        {companyCards.length > 0 ? companyCards : <h4>{`No companies found for "${searchTerm}."`}</h4>}
+      </div>
     </div>
   )
 }
