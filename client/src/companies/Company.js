@@ -6,9 +6,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import './Company.css';
+import JoblyApi from "../api/JoblyApi";
 
-import JobCard from "./JobCard"
-import JoblyApi from "./JoblyApi"
+import JobCard from "../jobs/JobCard"
 
 
 function Company() {

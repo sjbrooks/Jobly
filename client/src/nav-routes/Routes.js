@@ -10,12 +10,12 @@ import {
 } from 'react-router-dom';
 import PrivateRoute from "./PrivateRoute";
 
-import Home from "./Home"
-import Companies from "./Companies"
-import Company from "./Company"
-import Jobs from "./Jobs"
-import Login from "./Login"
-import Profile from "./Profile"
+import Home from "../home/Home"
+import Companies from "../companies/Companies"
+import Company from "../companies/Company"
+import Jobs from "../jobs/Jobs"
+import Login from "../auth/Login"
+import Profile from "../profiles/Profile"
 
 
 function Routes() {

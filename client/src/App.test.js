@@ -1,9 +1,29 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitForElement } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+describe("Jobly routes", function() {
+  it("renders without crashing", async function() {
+    const { getByText } = render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+    await waitForElement(() => getByText("Log in"));
+  });
+
+  it("renders the home snapshot", async function() {
+    const { asFragment, getByText, getAllByText } = render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+    await waitForElement(() => getByText("All the jobs in one convenient place."));
+    getByText("Login");
+    getAllByText("Jobly");
+
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
