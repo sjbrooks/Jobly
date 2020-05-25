@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import './Search.css';
-
-
 /** Search: Component renders search bar
  *    - Holds state of formData (i.e., search term)
  *    - Holds props of updateSearchTerm
  *    - Used in Companies and Jobs components
  */
 
+
+import React, { useState } from 'react';
+import './Search.css';
+
+
 function Search({ setSearchTerm }) {
 
   const [formData, setFormData] = useState("");
 
-  /** Send {name, quantity} to parent
-   *    & clear form. */
+  /** Send {name, quantity} to parent & clear form. */
 
   const handleSubmit = evt => {
     evt.preventDefault();
@@ -28,6 +28,7 @@ function Search({ setSearchTerm }) {
   };
 
   /** render form */
+
   return (
     <form className="Search form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
         <input

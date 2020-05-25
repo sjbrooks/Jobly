@@ -1,3 +1,8 @@
+/** Company: Component renders profile page of single company, including company name, bio, and list of its job openings
+ *    - Used in Routes component
+ *    - Uses JobCard component */
+
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import './Company.css';
@@ -5,10 +10,6 @@ import './Company.css';
 import JobCard from "./JobCard"
 import JoblyApi from "./JoblyApi"
 
-
-/** Company: Component renders profile page of single company, including company name, bio, and list of its job openings
- *    - Used in Routes
- *    - Uses JobCard component */
 
 function Company() {
   const { handle } = useParams();

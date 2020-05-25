@@ -9,11 +9,11 @@ class Job {
   /** Find all jobs (can filter on terms in data). */
 
   static async findAll(data, username) {
-    console.log(data);
+
     let baseQuery = `
       SELECT id, title, company_handle, salary, equity, a.state, c.name as company_name
-        FROM jobs 
-        LEFT OUTER JOIN applications AS a 
+        FROM jobs
+        LEFT OUTER JOIN applications AS a
         ON a.job_id = id AND a.username = $1
         LEFT OUTER JOIN companies AS c
         ON company_handle = c.handle`;
@@ -46,8 +46,6 @@ class Job {
 
     let finalQuery = baseQuery + whereExpressions.join(" AND ") + ' ORDER BY title';
 
-    console.log(`\n\n\n The value of finalQuery is `, finalQuery, '\n\n\n');
-
     const jobsRes = await db.query(finalQuery, queryValues);
     return jobsRes.rows;
   }
@@ -58,7 +56,7 @@ class Job {
     const jobRes = await db.query(
         `SELECT id, title, salary, equity, company_handle, state, c.name
              FROM jobs
-             LEFT OUTER JOIN applications AS a 
+             LEFT OUTER JOIN applications AS a
              ON a.job_id = id
              WHERE username = $1
              LEFT OUTER JOIN companies AS c
@@ -74,8 +72,8 @@ class Job {
     }
 
     const companiesRes = await db.query(
-        `SELECT name, num_employees, description, logo_url 
-          FROM companies 
+        `SELECT name, num_employees, description, logo_url
+          FROM companies
           WHERE handle = $1`,
         [job.company_handle]
     );
@@ -89,8 +87,8 @@ class Job {
 
   static async create(data) {
     const result = await db.query(
-        `INSERT INTO jobs (title, salary, equity, company_handle) 
-             VALUES ($1, $2, $3, $4) 
+        `INSERT INTO jobs (title, salary, equity, company_handle)
+             VALUES ($1, $2, $3, $4)
              RETURNING id, title, salary, equity, company_handle`,
         [data.title, data.salary, data.equity, data.company_handle]
     );
@@ -131,8 +129,8 @@ class Job {
 
   static async remove(id) {
     const result = await db.query(
-        `DELETE FROM jobs 
-            WHERE id = $1 
+        `DELETE FROM jobs
+            WHERE id = $1
             RETURNING id`,
         [id]);
 
@@ -147,8 +145,8 @@ class Job {
 
   static async apply(id, username, state) {
       const result = await db.query(
-          `SELECT id 
-            FROM jobs 
+          `SELECT id
+            FROM jobs
             WHERE id = $1`,
           [id]);
 
@@ -159,7 +157,7 @@ class Job {
       }
 
       await db.query(
-          `INSERT INTO applications (job_id, username, state) 
+          `INSERT INTO applications (job_id, username, state)
             VALUES ($1, $2, $3)`,
           [id, username, state]);
   }

@@ -1,3 +1,7 @@
+/** Routes: Component that performs client-side routing for Jobly
+ *    - Used in App component
+ *    - Uses Home, Companies, Company, Jobs, Login, and Profile components */
+
 import React from 'react';
 import {
   Switch,
@@ -14,13 +18,7 @@ import Login from "./Login"
 import Profile from "./Profile"
 
 
-
-/** Routes: Component that performs client-side routing for Jobly
- *    - Used in App
- *    - Uses Home, Companies, Company, Jobs, Login, and Profile Components */
-
 function Routes() {
-
   return (
     <Switch>
       <Route exact path="/">

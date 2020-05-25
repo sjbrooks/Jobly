@@ -1,21 +1,22 @@
+/** JobCard: Component that renders a div with job info and a button to apply
+ *    - Holds props of a single jobData object to render and an applyToJob function to update state key in jobData to "applied"
+ *    - Used in Jobs and Company components
+ */
+
+
 import React from 'react';
 import './JobCard.css';
 import { Link } from 'react-router-dom';
 
-/** JobCard: Component that renders a div with job info and a button to apply
- *    - Holds props of a single jobData object to render and an applyToJob function to update state key in jobData to "applied"
- *    - Used in Jobs and Company components 
- * */
 
 function JobCard({ jobData: {id, title, salary, equity, company_name, company_handle, state}, applyToJob }) {
 
-  let button = <button 
+  let button = <button
                 className="btn btn-danger"
                 disabled={state}
                 onClick={() => applyToJob(id)}>
                   <b>{state === "applied" ? "APPLIED" : "APPLY"}</b>
                 </button>
-
 
   return (
     <div className="JobCard">

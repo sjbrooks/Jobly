@@ -1,17 +1,19 @@
-import React, { useState, useContext, useCallback } from 'react';
-import './Profile.css';
-import JoblyApi from './JoblyApi';
-import TokenContext from './tokenContext';
-import Alert from './Alert';
-import JobCard from './JobCard';
-
 /** Profile: Component renders a form with current user's profile data
  *    - Holds state of updated, a status that tracks if the user profile has been updated via form submission
  *    - Used in Routes component
  *    - Uses Alert component
  */
 
+
+import React, { useState, useContext, useCallback } from 'react';
+import './Profile.css';
+import JoblyApi from './JoblyApi';
+import TokenContext from './tokenContext';
+import Alert from './Alert';
+
+
 function Profile() {
+
   const updateFields = [
     { input: "first_name", label: "First name" },
     { input: "last_name", label: "Last name" },

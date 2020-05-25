@@ -1,19 +1,21 @@
-import React, { useState, useCallback, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-import './Login.css';
-import JoblyApi from './JoblyApi';
-import TokenContext from "./tokenContext";
-
-import Alert from "./Alert";
-
 /** Login: Component renders login/signup page, with forms for each, depending on which button is clicked
  *    - Holds state of formType (i.e., login or signup), formData, and errMsg
  *    - Used in Routes component
  *    - Uses Alert component
  */
 
+
+import React, { useState, useCallback, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import JoblyApi from './JoblyApi';
+import TokenContext from "./tokenContext";
+import './Login.css';
+
+import Alert from "./Alert";
+
+
 function Login() {
-  console.log('\n\n\n Made it into Login component \n\n\n');
+
   const loginFields = [{ input: "username", label: "Username" },
   { input: "password", label: "Password" }];
 
@@ -110,6 +112,7 @@ function Login() {
   }
 
   /** render form */
+
   return (
     <div className="Login">
       <div className="Login-form-buttons">

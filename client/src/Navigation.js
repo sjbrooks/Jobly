@@ -1,19 +1,23 @@
+/** Navigation: Component that renders one of two navigation bars based on if a token exists
+ *    - Holds props of handleLogout, a function to log out a logged in user
+ *    - Used in App component
+ * */
+
+
 import React, { useContext } from 'react';
 import './Navigation.css';
 import { NavLink } from "react-router-dom";
 import TokenContext from "./tokenContext";
 
 
-/** Navigation: Component that renders one of two navigation bars based on if a token exists
- *    - Used in App
- * */
-
 function Navigation({ handleLogout }) {
 
   const { user } = useContext(TokenContext);
 
-  // function that returns correct navbar based on value of token
+  /* Returns correct navbar based on value of token */
+
   function returnCorrectNav() {
+    // Navbar for logged in users
     if (user !== null) {
       return (
         <nav className="Navigation navbar navbar-expand-lg navbar-light bg-light">
@@ -38,7 +42,6 @@ function Navigation({ handleLogout }) {
             </li>
             <li className="Navigation nav-item">
               <NavLink to="/" onClick={handleLogout}>
-                {console.log(`\n\n\n The value of handleLogout inside Navigation is `, handleLogout, '\n\n\n')}
                 Log out
               </NavLink>
             </li>
@@ -46,6 +49,8 @@ function Navigation({ handleLogout }) {
         </nav>
       )
     } else {
+
+      // Navbar for logged out users
       return (
         <nav className="Navigation navbar navbar-expand-lg navbar-light bg-light">
         <NavLink className="navbar-brand" exact to="/">

@@ -1,3 +1,9 @@
+/** Companies: Component that renders a search bar and list of companies
+ *    - Holds state of searchTerm and companiesList
+ *    - Used in Routes
+ *    - Uses Search and CompanyCard components */
+
+
 import React, { useEffect, useState } from 'react';
 import './Companies.css';
 import JoblyApi from "./JoblyApi";
@@ -6,17 +12,13 @@ import CompanyCard from "./CompanyCard"
 import Search from "./Search"
 
 
-/** Companies: Component that renders a search bar and list of companies
- *    - Holds state of searchTerm and companiesList
- *    - Used in Routes
- *    - Uses Search and CompanyCard components */
-
 function Companies() {
+
   const [searchTerm, setSearchTerm] = useState("");
   const [companiesList, setCompaniesList] = useState(null);
-  // const history = useHistory();
 
-  // useEffect that will make API call for filtered companies upon change in searchTerm
+  /* useEffect that will make API call for filtered companies upon change in searchTerm */
+
   useEffect(() => {
     async function fetchCompanies() {
       try {
