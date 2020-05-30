@@ -17,7 +17,6 @@ function Company() {
   const [companyData, setCompanyData] = useState(null);
   const [appliedJobs, setAppliedJobs] = useState(null);
 
-
   // defines fetchCompanyData, which makes API call for single company upon first component mount
   const fetchCompanyData = useCallback(async () => {
     try {
@@ -32,7 +31,7 @@ function Company() {
     }
   }, [handle]);
 
-  // run fetchJobs upon mounting of Company component
+  // run fetchCompanyData upon mounting of Company component
   useEffect(() => {
     fetchCompanyData();
   }, []);

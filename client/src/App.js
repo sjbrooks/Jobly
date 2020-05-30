@@ -28,7 +28,7 @@ function App() {
   function handleLogout() {
     localStorage.removeItem('token');
     setCurrentUser(null);
-    return <Redirect to='/login' />
+    return <Redirect to='/' />
   }
 
   /** Sets the current user in state from the username in the token
@@ -65,32 +65,30 @@ function App() {
     }
   }
 
-/** login: makes API call to log in user */
+  /** login: site-wide login */
 
-async function login(loginData) {
-  let { username, password } = loginData;
-  try {
-    let resp = await JoblyApi.request('login', { username, password }, "post");
-    setToken(resp.token);
-    return {success: true}
-  } catch (err) {
-    // setErrMsg(err);
-    return {success: false, errors: err}
+  async function login(loginData) {
+    let { username, password } = loginData;
+    try {
+      let resp = await JoblyApi.request('login', { username, password }, "post");
+      setToken(resp.token);
+      return { success: true }
+    } catch (err) {
+      return { success: false, errors: err }
+    }
   }
-}
 
-/** signup: makes API call to sign up user */
+  /** signup: site-wide user signup */
 
-async function signup (signupData) {
-  try {
-    let resp = await JoblyApi.request('users', signupData, "post");
-    setToken(resp.token);
-    return {success: true}
-  } catch (err) {
-    // setErrMsg(err);
-    return {success: false, errors: err}
+  async function signup(signupData) {
+    try {
+      let resp = await JoblyApi.request('users', signupData, "post");
+      setToken(resp.token);
+      return { success: true }
+    } catch (err) {
+      return { success: false, errors: err }
+    }
   }
-}
 
 
   return (

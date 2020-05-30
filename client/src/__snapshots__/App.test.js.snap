@@ -30,27 +30,23 @@ exports[`Jobly routes renders the home snapshot 1`] = `
       </nav>
     </div>
     <div
-      class="container"
+      class="Home"
     >
-      <div
-        class="Home"
+      <h1>
+        Jobly
+      </h1>
+      <p>
+        All the jobs in one convenient place.
+      </p>
+      <a
+        href="/login"
       >
-        <h1>
-          Jobly
-        </h1>
-        <p>
-          All the jobs in one convenient place.
-        </p>
-        <a
-          href="/login"
+        <button
+          class="btn btn-primary home-login-button"
         >
-          <button
-            class="btn btn-primary home-login-button"
-          >
-            Log in
-          </button>
-        </a>
-      </div>
+          Log in
+        </button>
+      </a>
     </div>
   </div>
 </DocumentFragment>

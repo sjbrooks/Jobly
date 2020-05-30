@@ -1,0 +1,167 @@
+{
+  "companies": [
+    {
+      "handle": "anderson-arias-and-morrow",
+      "name": "Anderson, Arias and Morrow",
+      "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+      "logo_url": ""
+    },
+    {
+      "handle": "arnold-berger-and-townsend",
+      "name": "Arnold, Berger and Townsend",
+      "description": "Kind crime at perhaps beat. Enjoy deal purpose serve begin or thought. Congress everything miss tend.",
+      "logo_url": ""
+    },
+    {
+      "handle": "ayala-buchanan",
+      "name": "Ayala-Buchanan",
+      "description": "Make radio physical southern. His white on attention kitchen market upon. Represent west open seven. Particularly subject billion much score thank bag somebody.",
+      "logo_url": "http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg"
+    },
+    {
+      "handle": "baker-santos",
+      "name": "Baker-Santos",
+      "description": "Compare certain use. Writer time lay word garden. Resource task interesting voice.",
+      "logo_url": ""
+    },
+    {
+      "handle": "bauer-gallagher",
+      "name": "Bauer-Gallagher",
+      "description": "Difficult ready trip question produce produce someone.",
+      "logo_url": ""
+    },
+    {
+      "handle": "boyd-evans",
+      "name": "Boyd-Evans",
+      "description": "Build respond generation tree. No five keep. Happy medical back fine focus suffer modern.",
+      "logo_url": "http://www.gtdesigns.it/wp-content/uploads/OverusedLogos/99gen_arc.jpg"
+    },
+    {
+      "handle": "burton-ltd",
+      "name": "Burton Ltd",
+      "description": "Cover couple speech bar cell measure movement finally. Nation pull inside.",
+      "logo_url": ""
+    }
+  ],
+  "companies/anderson-arias-and-morrow": [
+    {
+      "handle": "anderson-arias-and-morrow",
+      "name": "Anderson, Arias and Morrow",
+      "num_employees": 245,
+      "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+      "logo_url": "",
+      "jobs": [
+        {
+          "id": 13,
+          "title": "Art gallery manager",
+          "salary": 114000,
+          "equity": 0.19,
+          "state": "applied",
+          "company_handle": "anderson-arias-and-morrow",
+          "company_name": "Anderson, Arias and Morrow"
+        },
+        {
+          "id": 90,
+          "title": "Embryologist, clinical",
+          "salary": 138000,
+          "equity": 0.03,
+          "state": "applied",
+          "company_handle": "anderson-arias-and-morrow",
+          "company_name": "Anderson, Arias and Morrow"
+        },
+        {
+          "id": 99,
+          "title": "Glass blower/designer",
+          "salary": 126000,
+          "equity": 0.13,
+          "state": "applied",
+          "company_handle": "anderson-arias-and-morrow",
+          "company_name": "Anderson, Arias and Morrow"
+        },
+        {
+          "id": 123,
+          "title": "Oceanographer",
+          "salary": 110000,
+          "equity": 0.01,
+          "state": "applied",
+          "company_handle": "anderson-arias-and-morrow",
+          "company_name": "Anderson, Arias and Morrow"
+        },
+        {
+          "id": 62,
+          "title": "Technical brewer",
+          "salary": 157000,
+          "equity": 0.15,
+          "state": "applied",
+          "company_handle": "anderson-arias-and-morrow",
+          "company_name": "Anderson, Arias and Morrow"
+        },
+        {
+          "id": 68,
+          "title": "Writer",
+          "salary": 172000,
+          "equity": 0.04,
+          "state": null,
+          "company_handle": "anderson-arias-and-morrow",
+          "company_name": "Anderson, Arias and Morrow"
+        }
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "id": 13,
+      "title": "Art gallery manager",
+      "salary": 114000,
+      "equity": 0.19,
+      "state": "applied",
+      "company_handle": "anderson-arias-and-morrow",
+      "company_name": "Anderson, Arias and Morrow"
+    },
+    {
+      "id": 90,
+      "title": "Embryologist, clinical",
+      "salary": 138000,
+      "equity": 0.03,
+      "state": "applied",
+      "company_handle": "anderson-arias-and-morrow",
+      "company_name": "Anderson, Arias and Morrow"
+    },
+    {
+      "id": 99,
+      "title": "Glass blower/designer",
+      "salary": 126000,
+      "equity": 0.13,
+      "state": "applied",
+      "company_handle": "anderson-arias-and-morrow",
+      "company_name": "Anderson, Arias and Morrow"
+    },
+    {
+      "id": 123,
+      "title": "Oceanographer",
+      "salary": 110000,
+      "equity": 0.01,
+      "state": "applied",
+      "company_handle": "anderson-arias-and-morrow",
+      "company_name": "Anderson, Arias and Morrow"
+    },
+    {
+      "id": 62,
+      "title": "Technical brewer",
+      "salary": 157000,
+      "equity": 0.15,
+      "state": "applied",
+      "company_handle": "anderson-arias-and-morrow",
+      "company_name": "Anderson, Arias and Morrow"
+    },
+    {
+      "id": 68,
+      "title": "Writer",
+      "salary": 172000,
+      "equity": 0.04,
+      "state": null,
+      "company_handle": "anderson-arias-and-morrow",
+      "company_name": "Anderson, Arias and Morrow"
+    }
+  ]
+}

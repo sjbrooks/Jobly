@@ -10,7 +10,7 @@ const testUser = {
 };
 
 const UserProvider = ({ children, currentUser = testUser }) => (
-  <UserContext.Provider value={{ currentUser, token }}>
+  <UserContext.Provider value={{ currentUser }}>
     {children}
   </UserContext.Provider>
 );

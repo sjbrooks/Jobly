@@ -1,31 +1,37 @@
 import React from "react";
 import { render, waitForElement } from "@testing-library/react";
-import Company from "./Company";
 import { MemoryRouter, Route } from "react-router-dom";
 import { UserProvider } from "../testUtils";
+import Company from "./Company";
+import axiosMock from "../__mocks__/axios";
 
-it("renders without crashing", function() {
-  render(
-    <MemoryRouter>
-      <UserProvider>
-        <Company />
-      </UserProvider>
-    </MemoryRouter>
-  );
-});
+jest.mock('axios');
 
-it("matches snapshot", async function() {
-  const { asFragment, getAllByText } = render(
-    <MemoryRouter initialEntries={["/companies/anderson-arias-and-morrow"]}>
-      <UserProvider>
-        <Route path="/companies/:handle">
+describe("Company", function () {
+  it("renders without crashing", function () {
+    render(
+      <MemoryRouter>
+        <UserProvider>
           <Company />
-        </Route>
-      </UserProvider>
-    </MemoryRouter>
-  );
+        </UserProvider>
+      </MemoryRouter>
+    );
+  });
 
-  await waitForElement(() => getAllByText(/Anderson, Arias and Morrow/));
+  it("matches snapshot", async function () {
+    const { asFragment, getByText } = render(
+      <MemoryRouter initialEntries={["/companies/anderson-arias-and-morrow"]}>
+        <UserProvider>
+          <Company />
+        </UserProvider>
+      </MemoryRouter>
+    );
 
-  expect(asFragment()).toMatchSnapshot();
+    await waitForElement(() => getByText("Submit"));
+    expect(axiosMock.get).toHaveBeenCalledTimes(1);
+    expect(asFragment()).toMatchSnapshot();
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 });
