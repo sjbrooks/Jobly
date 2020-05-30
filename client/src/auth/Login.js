@@ -5,75 +5,60 @@
  */
 
 
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import JoblyApi from "../api/JoblyApi";
-import TokenContext from "../auth/tokenContext";
+import UserContext from './UserContext';
 import './Login.css';
 
 import Alert from "../shared/Alert";
 
 
-function Login() {
+function Login({ login, signup }) {
 
-  const loginFields = [{ input: "username", label: "Username" },
-  { input: "password", label: "Password" }];
+  const loginFields = [
+    { input: "username", label: "Username" },
+    { input: "password", label: "Password" }
+  ];
 
-  const signupFields = [{ input: "username", label: "Username" },
-  { input: "password", label: "Password" },
-  { input: "first_name", label: "First name" },
-  { input: "last_name", label: "Last name" },
-  { input: "email", label: "Email" }];
+  const signupFields = [
+    { input: "username", label: "Username" },
+    { input: "password", label: "Password" },
+    { input: "first_name", label: "First name" },
+    { input: "last_name", label: "Last name" },
+    { input: "email", label: "Email" }
+  ];
 
-  const INITIAL_FIELDS = { username: "", password: "", first_name: "", last_name: "", email: "" };
+  const INITIAL_FIELDS = {
+    username: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    email: ""
+  };
 
   const [formType, setFormType] = useState("login");
   const [formData, setFormData] = useState({ ...INITIAL_FIELDS });
   const [errMsg, setErrMsg] = useState([]);
-
-  const { user, setToken } = useContext(TokenContext);
-
-
-  /** loginUser: makes API call to login user */
-
-  const loginUser = useCallback(async () => {
-    let { username, password } = formData;
-    try {
-      let resp = await JoblyApi.request('login', { username, password }, "post");
-      setToken(resp.token);
-    } catch (err) {
-      setErrMsg(err);
-    }
-  }, [formData]);
+  const { currentUser } = useContext(UserContext);
 
 
-  /** registerUser: makes API call to register user */
+  /** Handle login or signup depending on formType and set error message if it was unsuccessful */
 
-  const registerUser = useCallback(async () => {
-    try {
-      let resp = await JoblyApi.request('users', formData, "post");
-      setToken(resp.token);
-    } catch (err) {
-      setErrMsg(err);
-    }
-  }, [formData]);
-
-
-  /** upon submission of form, prevent default behavior and make API call based on formType (login vs. signup) */
-
-  const handleSubmit = (evt) => {
+  async function handleSubmit(evt) {
     evt.preventDefault();
 
     if (formType === "login") {
-      loginUser();
+      const result = await login(formData);
+      if (!result.success) setErrMsg(result.errors);
     } else {
-      registerUser();
+      const result = signup(formData);
+      if (!result.success) setErrMsg(result.errors);
     }
   }
 
-  /** Update local state w/curr state of input elem */
+  /** Update local state with current state of input fields */
 
-  const handleChange = (evt) => {
+  async function handleChange (evt) {
     const { value, name } = evt.target;
     setFormData(oldForm => ({
       ...oldForm,
@@ -85,29 +70,28 @@ function Login() {
 
   function renderForms(formTypeFields) {
     return (
-        <form className="Login-form" onSubmit={handleSubmit}>
-          {formTypeFields.map(field => (
-            <div className="form-group" key={field.input}>
-              <label className="Login-label" htmlFor={field.input}>{field.label}</label>
-              <input
-                className="Login-input"
-                id={field.input}
-                name={field.input}
-                type={field.input === "password" ? "password" : "text"}
-                value={formData[field.input]}
-                onChange={handleChange}
-              />
-            </div>
-          ))}
-
-          {errMsg.length !== 0 ? <Alert msg={errMsg} type="danger" alertClose={() => setErrMsg("")} /> : null}
-
-          <button className="btn btn-primary Login-submit">Submit</button>
-        </form>
+      <form className="Login-form" onSubmit={handleSubmit}>
+        {formTypeFields.map(field => (
+          <div className="form-group" key={field.input}>
+            <label className="Login-label" htmlFor={field.input}>{field.label}</label>
+            <input
+              className="Login-input"
+              id={field.input}
+              name={field.input}
+              type={field.input === "password" ? "password" : "text"}
+              value={formData[field.input]}
+              onChange={handleChange}
+            />
+          </div>
+        ))}
+        {errMsg.length !== 0 ? <Alert msg={errMsg} type="danger" alertClose={() => setErrMsg("")} /> : null}
+        <button className="btn btn-primary Login-submit">Submit</button>
+      </form>
     )
   }
 
-  if (user !== null) {
+  // if user is already signed in, redirect them to jobs page
+  if (currentUser !== null) {
     return <Redirect to="/jobs" />
   }
 

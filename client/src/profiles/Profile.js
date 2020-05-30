@@ -8,7 +8,7 @@
 import React, { useState, useContext, useCallback } from 'react';
 import './Profile.css';
 import JoblyApi from "../api/JoblyApi";
-import TokenContext from '../auth/tokenContext';
+import UserContext from '../auth/UserContext';
 
 import Alert from '../shared/Alert';
 
@@ -23,14 +23,14 @@ function Profile() {
     { input: "password", label: "Re-enter Password" }
   ];
 
-  const { user, setUser } = useContext(TokenContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   const INITIAL_FIELDS = {
-    first_name: user.first_name,
-    last_name: user.last_name,
-    email: user.email,
+    first_name: currentUser.first_name,
+    last_name: currentUser.last_name,
+    email: currentUser.email,
     password: "",
-    photo_url: user.photo_url
+    photo_url: currentUser.photo_url
   };
   const [formData, setFormData] = useState({ ...INITIAL_FIELDS });
 
@@ -42,8 +42,8 @@ function Profile() {
 
   const updateUser = useCallback(async () => {
     try {
-      let resp = await JoblyApi.request(`users/${user.username}`, formData, "patch");
-      setUser(resp.user);
+      let resp = await JoblyApi.request(`users/${currentUser.username}`, formData, "patch");
+      setCurrentUser(resp.user);
       setAlertObj({ type: "success", msgs: ["User Profile Updated"] });
       setFormData({ ...INITIAL_FIELDS });
     } catch (err) {
@@ -69,6 +69,7 @@ function Profile() {
   }
 
   /** Form to update user profile */
+
   let profileFormFields = (
     <div>
       <div className="form-group">
@@ -78,7 +79,7 @@ function Profile() {
           id="username"
           name="username"
           type="text"
-          value={user.username}
+          value={currentUser.username}
           disabled={true}
         />
       </div>
@@ -97,13 +98,18 @@ function Profile() {
     </div>
   );
 
-  //********* REWRITE TO MAKE EASIER TO READ */
-  let alertBox = (alertObj.msgs.length !== 0 ? <Alert msg={alertObj.msgs} type={alertObj.type} alertClose={() => setAlertObj({ ...INITIAL_ALERT })} /> : null)
+  /* shows an alert message if there was an error with updating profile */
+
+  const alertBox = (
+    alertObj.msgs.length > 0 ?
+      <Alert msg={alertObj.msgs} type={alertObj.type} alertClose={() => setAlertObj({ ...INITIAL_ALERT })} />
+      : null
+  )
 
   /** render form */
   return (
     <div className="Profile">
-      <h2>{user.first_name}'s Profile</h2>
+      <h2>{currentUser.first_name}'s Profile</h2>
       <form className="Profile-form" onSubmit={handleSubmit}>
         {profileFormFields}
         <button className="btn btn-primary Login-submit" > Submit</button>

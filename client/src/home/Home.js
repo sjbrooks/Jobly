@@ -7,18 +7,18 @@
 import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
-import TokenContext from "../auth/tokenContext";
+import UserContext from "../auth/UserContext";
 
 
 function Home() {
 
-  const { user } = useContext(TokenContext);
+  const { currentUser } = useContext(UserContext);
 
   return (
     <div className="Home">
       <h1>Jobly</h1>
       <p>All the jobs in one convenient place.</p>
-      {user !== null ? <h4>Welcome Back!</h4> : <Link to="/login"><button className="btn btn-primary home-login-button">Log in</button></Link>}
+      {currentUser !== null ? <h4>Welcome Back!</h4> : <Link to="/login"><button className="btn btn-primary home-login-button">Log in</button></Link>}
     </div>
   )
 }

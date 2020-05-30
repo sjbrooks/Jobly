@@ -7,18 +7,18 @@
 import React, { useContext } from 'react';
 import './Navigation.css';
 import { NavLink } from "react-router-dom";
-import TokenContext from "../auth/tokenContext";
+import UserContext from "../auth/UserContext";
 
 
 function Navigation({ handleLogout }) {
 
-  const { user } = useContext(TokenContext);
+  const { currentUser } = useContext(UserContext);
 
   /* Returns correct navbar based on value of token */
 
   function returnCorrectNav() {
     // Navbar for logged in users
-    if (user !== null) {
+    if (currentUser !== null) {
       return (
         <nav className="Navigation navbar navbar-expand-lg navbar-light bg-light">
           <NavLink className="navbar-brand" exact to="/">

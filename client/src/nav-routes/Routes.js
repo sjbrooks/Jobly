@@ -18,7 +18,7 @@ import Login from "../auth/Login"
 import Profile from "../profiles/Profile"
 
 
-function Routes() {
+function Routes({ login, signup }) {
   return (
     <Switch>
       <Route exact path="/">
@@ -26,7 +26,7 @@ function Routes() {
       </Route>
 
       <Route exact path="/login">
-        <Login />
+        <Login login={login} signup={signup} />
       </Route>
 
       <PrivateRoute exact path="/companies">

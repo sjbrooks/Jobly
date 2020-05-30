@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import TokenContext from "../auth/tokenContext";
+import UserContext from "../auth/UserContext";
 
 function PrivateRoute({ exact, path, children }) {
-  const { user } = useContext(TokenContext);
+  const { currentUser } = useContext(UserContext);
 
-  if (!user && (path !== "/login" && path !== "/")) {
+  if (!currentUser && (path !== "/login" && path !== "/")) {
     return <Redirect to="/login" />;
   }
 

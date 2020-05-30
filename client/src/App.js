@@ -1,7 +1,7 @@
 /** App: Component that renders home page with description of Jobly and depending
  *  on token status, either a Login button (if it doesn't exist), or a 'welcome back' message
  *    - Holds state of token and username
- *    - Provider of TokenContext is located here
+ *    - Provider of UserContext is located here
  *    - Used in Index component
  *    - Uses Routes and Navigation components
  */
@@ -14,20 +14,20 @@ import jwt from "jsonwebtoken";
 import Routes from "./nav-routes/Routes";
 import Navigation from "./nav-routes/Navigation";
 import JoblyApi from "./api/JoblyApi";
-import TokenContext from "./auth/tokenContext";
+import UserContext from "./auth/UserContext";
 import LoadingSpinner from "./shared/LoadingSpinner";
 
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [requestCompleted, setRequestCompleted] = useState(false);
 
   /** handleLogout: logs out current user by removing token and resetting user context to null */
 
   function handleLogout() {
     localStorage.removeItem('token');
-    setUser(null);
+    setCurrentUser(null);
     return <Redirect to='/login' />
   }
 
@@ -38,13 +38,12 @@ function App() {
   useEffect(() => {
     if (token !== null) {
       localStorage.setItem('token', token);
-      let payload = jwt.decode(token);
-      let updatedUsername = payload.username;
+      const { username } = jwt.decode(token);
 
       async function fetchUser() {
         try {
-          let resp = await JoblyApi.request(`users/${updatedUsername}`);
-          setUser(resp.user);
+          let resp = await JoblyApi.request(`users/${username}`);
+          setCurrentUser(resp.user);
           // waits until user has been set to change requestCompleted state to true
           setRequestCompleted(true);
         } catch (err) {
@@ -53,20 +52,53 @@ function App() {
       }
       fetchUser();
     } else {
-      setUser(null);
+      setCurrentUser(null);
       setRequestCompleted(true);
     }
   }, [token]);
 
+  function returnRoutes() {
+    if (requestCompleted !== true) {
+      return <LoadingSpinner />
+    } else {
+      return <Routes login={login} signup={signup} />
+    }
+  }
+
+/** login: makes API call to log in user */
+
+async function login(loginData) {
+  let { username, password } = loginData;
+  try {
+    let resp = await JoblyApi.request('login', { username, password }, "post");
+    setToken(resp.token);
+    return {success: true}
+  } catch (err) {
+    // setErrMsg(err);
+    return {success: false, errors: err}
+  }
+}
+
+/** signup: makes API call to sign up user */
+
+async function signup (signupData) {
+  try {
+    let resp = await JoblyApi.request('users', signupData, "post");
+    setToken(resp.token);
+    return {success: true}
+  } catch (err) {
+    // setErrMsg(err);
+    return {success: false, errors: err}
+  }
+}
+
 
   return (
     <div>
-      <TokenContext.Provider value={{ token, setToken, user, setUser }}>
-          <Navigation handleLogout={handleLogout}/>
-          <div className="container">
-            {requestCompleted ? <Routes /> : <LoadingSpinner />}
-          </div>
-      </TokenContext.Provider>
+      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+        <Navigation handleLogout={handleLogout} />
+        {returnRoutes()}
+      </UserContext.Provider>
     </div >
   );
 }
